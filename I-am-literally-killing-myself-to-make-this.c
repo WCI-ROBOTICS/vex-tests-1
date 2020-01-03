@@ -2,25 +2,26 @@
 #pragma config(Sensor, dgtl1,  bmp,         sensorTouch)
 // get ide here http://www.robotc.net/
 // documentation: http://www.robotc.net/tutor/Cortex/cortexunits.php?platform=Cortex
+
+int Dt = 10;
+
+int Kp = .1;
+int Ki = 0;
+int Kd = .1;
+
+int previous_error = 0;
+int integral = 0;
+
 void goToTarget(float target, short nam){
-	int acc = 7;
 	int val = motor[nam];
 
-	while (abs(val - target) < acc){
-			acc = acc/2;
-			if (acc<=1) break;
-	}
+    error = target - val;
+    integral = integral + error * dt; // dt might have to changed to miliseconds (devide by 1000)
+    derivative = (error - previous_error) / dt;
+    output = Kp * error + Ki * integral + Kd * derivative;
+    previous_error = error;
 
-	if (val == target){
-		val=val;
-	}
-	else if (val < target){
-		val = val+acc;
-	}
-	else{
-		val = val-acc;
-	}
-	motor[nam] = val;
+    motor[nam] = val + output;
 }
 
 task main(){
@@ -32,6 +33,6 @@ task main(){
 			goToTarget (127,motrev);
 		}
 
-		wait1Msec(10);
+		wait1Msec(Dt);
 	}
 }
