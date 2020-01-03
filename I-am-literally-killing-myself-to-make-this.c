@@ -7,26 +7,26 @@
 
 int dt = 10;  // in miliseconds
 
-// controls for pid loop
-float Kp = .1;
-float Ki = 0;
-float Kd = .1;
-
-float previous_error = 0;
-float integral = 0;
+float start_vel = 0;
+float prev_target = 0;
 
 void goToTarget(float target, short nam){
-	float val = motor[nam];
+	float vel = motor[nam];
 
-    float error = target - val;
-    integral = integral + error * dt; // dt might have to changed to seconds (divide by 1000)
-    float derivative = (error - previous_error) / dt;
-    float output = Kp * error + Ki * integral + Kd * derivative;
-    previous_error = error;
+    if (target != prev_target){
+        start_vel = vel;
+        prev_target = target;
+    }
 
-    float next_vel = val + output;
-    next_vel = MAX(-127, next_vel);
-    next_vel = MIN(127, next_vel);
+    float cMap = (vel-start_vel)/(target-start_vel);
+    float acl = cMap*(1-cMap);
+    if (~acl && target != vel){
+        acl = .02;
+    }
+    float next_vel = vel + acl*( target-start_vel);
+
+    next_vel = MAX(-127.0, next_vel);
+    next_vel = MIN(127.0, next_vel);
     motor[nam] = next_vel;
 }
 
