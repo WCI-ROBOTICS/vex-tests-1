@@ -20,7 +20,7 @@ bool inDeadZone(float value1, float value2, float deadZone){
 void goToTarget(float target, short nam){
 	float vel = motor[nam];
 
-    if (~inDeadZone(target, prev_target, 1.5)){
+    if (~inDeadZone(target, prev_target, .5)){
         start_vel = vel;
         prev_target = target;
     }

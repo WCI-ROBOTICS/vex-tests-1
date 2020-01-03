@@ -1,9 +1,9 @@
-#pragma config(Motor,  port8,           motrev,        tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port9,           mot,           tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port7,           claw,          tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,           clawrot,      tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port1,           leftMotor,     tmotorVex393, openLoop, reversed)
-#pragma config(Motor,  port10,          rightMotor,    tmotorVex393, openLoop, reversed)
+#pragma config(Motor,  port8,           motrev,        tmotorVex393_MC29,      openLoop)
+#pragma config(Motor,  port9,           mot,           tmotorVex393_MC29,      openLoop, reversed)
+#pragma config(Motor,  port7,           claw,          tmotorVex393_MC29,      openLoop)
+#pragma config(Motor,  port6,           clawrot,       tmotorVex393_MC29,      openLoop)
+#pragma config(Motor,  port1,           leftMotor,     tmotorVex393,           openLoop, reversed)
+#pragma config(Motor,  port10,          rightMotor,    tmotorVex393,           openLoop, reversed)
 //Michael figure out the wheel and claw ports
 
 void writeArm(int speed){
