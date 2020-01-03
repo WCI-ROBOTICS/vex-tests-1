@@ -10,10 +10,17 @@ int dt = 10;  // in miliseconds
 float start_vel = 0;
 float prev_target = 0;
 
+bool inDeadZone(float value1, float value2, float deadZone){
+    if (abs(value1 - value2) < deadZone){
+        return true;
+    }
+    return false;
+}
+
 void goToTarget(float target, short nam){
 	float vel = motor[nam];
 
-    if (target != prev_target){
+    if (~inDeadZone(target, prev_target, 1.5)){
         start_vel = vel;
         prev_target = target;
     }
@@ -31,14 +38,14 @@ void goToTarget(float target, short nam){
 }
 
 task main(){
-	while (true){
-		if (SensorValue(bmp) == 1){
-			 goToTarget(-127, motrev);
-		}
-		else{
-			goToTarget (127,motrev);
-		}
+    while (true){
+        if (SensorValue(bmp) == 1){
+            goToTarget(-127, motrev);
+        }
+        else{
+            goToTarget (127,motrev);
+        }
 
-		wait1Msec(dt);
+        wait1Msec(dt);
 	}
 }
