@@ -1,9 +1,9 @@
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
 #pragma config(Motor,  port1,           leftMotor,     tmotorVex393,           openLoop, reversed)
 #pragma config(Motor,  port10,          rightMotor,    tmotorVex393,           openLoop, reversed)
 // get ide here http://www.robotc.net/
 // documentation: http://www.robotc.net/tutor/Cortex/cortexunits.php?platform=Cortex
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
 
 int dt = 10;  // in miliseconds
 
@@ -25,7 +25,7 @@ void goToTarget(float target, short nam, float *start_vel, float *prev_target){
 
 	float cMap = (vel-*start_vel)/(target-*start_vel);
 	float acl = cMap*(1-cMap);
-	if (~acl && target != vel){
+	if (acl == 0 && target != vel){
 		acl = .02;
 	}
 	float next_vel = vel + acl*( target-*start_vel);
