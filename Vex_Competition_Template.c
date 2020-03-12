@@ -99,7 +99,7 @@ task usercontrol()
 		if(vexRT[Btn5U] == 1)       	//If button 5U is pressed...
 		{
 			//motor[armMotor] = 127;    	//...raise the arm.
-			motor[RclawMotor] = 80
+			motor[RclawMotor] = 80;
 			motor[LclawMotor] = 80;
 		}
 		else if(vexRT[Btn5D] == 1)  	//Else, if button 5D is pressed...
